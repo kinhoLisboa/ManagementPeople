@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface EnderecoService {
     List<EnderecoResponse> createNewAddress(UUID personId, EnderecoRequest request);
+
+    List<EnderecoResponse> listAddressToId(UUID personId);
 }

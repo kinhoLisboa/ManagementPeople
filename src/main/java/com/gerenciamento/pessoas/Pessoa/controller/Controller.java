@@ -33,10 +33,11 @@ public interface Controller {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     void deletar(@PathVariable UUID idPessoa);
 
-  //  @PostMapping("/endereco/{pessoaId}")
- //   @ResponseStatus(code = HttpStatus.CREATED)
-  //  List<EnderecoResponse> criaEndereco(@PathVariable UUID pessoaId, @Valid @RequestBody EnderecoRequest enderecoRequest );
-    @PostMapping("/endereco/{pessoaId}")
+    @PostMapping("/endereco/{personId}")
     @ResponseStatus(code = HttpStatus.CREATED)
     List<EnderecoResponse> createAddress(@PathVariable UUID personId,@Valid @RequestBody  EnderecoRequest request);
+    @GetMapping("/endereco/{personId}")
+    @ResponseStatus(code = HttpStatus.OK)
+    List<EnderecoResponse> listAddressToId(@PathVariable UUID personId);
+
 }

@@ -69,12 +69,11 @@ public class ControllerPeople implements Controller{
         return address;
     }
 
-    //  @Override
- //   public List<EnderecoResponse> criaEndereco(UUID pessoaId, EnderecoRequest enderecoRequest) {
-    //    log.info("[Inicia]PessoaController - criaEndereco");
-    //    log.info("PessoaId ()", pessoaId);
-     //   List<EnderecoResponse> endereco =	enderecoService.criaNovoEndereco(pessoaId, enderecoRequest);
-     //   log.info("[Finaliza]PessoaController -criaEndereco");
-      //  return endereco;
-  //  }
+    @Override
+    public List<EnderecoResponse> listAddressToId(UUID personId) {
+        log.info("[Inicia]PessoaController - listAddressToId");
+        List<EnderecoResponse> list = addressService.listAddressToId(personId);
+        log.info("[Finaliza]PessoaController -listAddressToId");
+        return list;
+    }
 }
