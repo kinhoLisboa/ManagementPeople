@@ -4,8 +4,10 @@ import com.gerenciamento.pessoas.Dto.pessoa.*;
 import com.gerenciamento.pessoas.Pessoa.dominio.Pessoa;
 import com.gerenciamento.pessoas.Pessoa.dominio.TipoEndereco;
 import com.gerenciamento.pessoas.Pessoa.repository.PessoaRepository;
+import com.gerenciamento.pessoas.handler.APIException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,7 +69,7 @@ public class PessoaApplicationService implements  PessoaService{
                 .filter(endereco -> TipoEndereco.PRINCIPAL.equals(endereco.getType())).count();
 
         if(qtdEnderecoPrincipal>1) {
-            throw new QuantidadeEnderecoPrincipalInválida("Não é permitido inserir mais de um endereço principal.");
+            throw  APIException.build(HttpStatus.NOT_FOUND, "Já existe um endereço principal");
         }
     }
 }
