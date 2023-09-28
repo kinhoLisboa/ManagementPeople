@@ -1,6 +1,7 @@
 package com.gerenciamento.pessoas.Pessoa.controller;
 
-import com.gerenciamento.pessoas.Pessoa.Dto.*;
+import com.gerenciamento.pessoas.Dto.pessoa.*;
+
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public interface Controller {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     void deletar(@PathVariable UUID idPessoa);
 
-    @PostMapping("/endereco/{pessoaId}")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    List<EnderecoResponse> criaEndereco(@PathVariable UUID pessoaId, @Valid @RequestBody EnderecoRequest enderecoRequest );
+  //  @PostMapping("/endereco/{pessoaId}")
+ //   @ResponseStatus(code = HttpStatus.CREATED)
+  //  List<EnderecoResponse> criaEndereco(@PathVariable UUID pessoaId, @Valid @RequestBody EnderecoRequest enderecoRequest );
 }

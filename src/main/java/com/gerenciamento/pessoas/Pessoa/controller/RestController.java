@@ -1,5 +1,6 @@
 package com.gerenciamento.pessoas.Pessoa.controller;
 
+import com.gerenciamento.pessoas.Dto.pessoa.*;
 import com.gerenciamento.pessoas.Pessoa.Dto.*;
 import com.gerenciamento.pessoas.Pessoa.service.PessoaService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class RestControllerPeople implements Controller{
     public PessoaDetalhadaResponse detail(UUID id) {
         log.info("[Inicia]PessoaController -detail");
         log.info("PessoaId ()", id);
-        var person = servicePerson.quest(id);
+        PessoaDetalhadaResponse person = servicePerson.quest(id);
         log.info("[Finaliza]PessoaController -detail");
         return person;
     }
