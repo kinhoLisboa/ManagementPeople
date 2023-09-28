@@ -2,6 +2,7 @@ package com.gerenciamento.pessoas.Pessoa.service;
 
 import com.gerenciamento.pessoas.Dto.pessoa.*;
 import com.gerenciamento.pessoas.Pessoa.dominio.Pessoa;
+import com.gerenciamento.pessoas.Pessoa.dominio.TipoEndereco;
 import com.gerenciamento.pessoas.Pessoa.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -58,5 +59,15 @@ public class PessoaApplicationService implements  PessoaService{
         repositoryPerson.deleteId(person);
         log.info("[Finaliza]PessoaApplicationService - delete");
 
+    }
+    @Override
+    public void validatesAddress(PessoaRequest request) {
+        long qtdEnderecoPrincipal = request.getAddress()
+                .stream()
+                .filter(endereco -> TipoEndereco.PRINCIPAL.equals(endereco.getType())).count();
+
+        if(qtdEnderecoPrincipal>1) {
+            throw new QuantidadeEnderecoPrincipalInválida("Não é permitido inserir mais de um endereço principal.");
+        }
     }
 }

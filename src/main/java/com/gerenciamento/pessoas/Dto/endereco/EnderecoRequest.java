@@ -10,13 +10,13 @@ import lombok.Value;
 public class EnderecoRequest {
 
     @NotBlank
-    private String logradouro;
+    private String street;
     @NotBlank
     private String cep;
     @NotBlank
-    private String numero;
+    private String number;
     @NotBlank
-    private String cidade;
+    private String city;
     @Enumerated(EnumType.STRING)
     private TipoEndereco type;
 }

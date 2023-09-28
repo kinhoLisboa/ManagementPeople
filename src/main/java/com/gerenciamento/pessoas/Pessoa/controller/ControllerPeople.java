@@ -1,7 +1,10 @@
 package com.gerenciamento.pessoas.Pessoa.controller;
 
+import com.gerenciamento.pessoas.Dto.endereco.EnderecoRequest;
+import com.gerenciamento.pessoas.Dto.endereco.EnderecoResponse;
 import com.gerenciamento.pessoas.Dto.pessoa.*;
-import com.gerenciamento.pessoas.Pessoa.Dto.*;
+
+import com.gerenciamento.pessoas.Pessoa.service.EnderecoService;
 import com.gerenciamento.pessoas.Pessoa.service.PessoaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,9 +15,10 @@ import java.util.UUID;
 @Log4j2
 @RequiredArgsConstructor
 @RestController
-public class RestControllerPeople implements Controller{
+public class ControllerPeople implements Controller{
 
     private final PessoaService servicePerson;
+    private final EnderecoService addressService;
     @Override
     public PessoaResponse create (PessoaRequest request) {
         log.info("[Inicia]PessoaController -create");
@@ -58,11 +62,19 @@ public class RestControllerPeople implements Controller{
     }
 
     @Override
-    public List<EnderecoResponse> criaEndereco(UUID pessoaId, EnderecoRequest enderecoRequest) {
+    public List<EnderecoResponse> createAddress(UUID personId, EnderecoRequest request) {
         log.info("[Inicia]PessoaController - criaEndereco");
-        log.info("PessoaId ()", pessoaId);
-        List<EnderecoResponse> endereco =	enderecoService.criaNovoEndereco(pessoaId, enderecoRequest);
+        List<EnderecoResponse> address = addressService.createNewAddress(personId, request);
         log.info("[Finaliza]PessoaController -criaEndereco");
-        return endereco;
+        return address;
     }
+
+    //  @Override
+ //   public List<EnderecoResponse> criaEndereco(UUID pessoaId, EnderecoRequest enderecoRequest) {
+    //    log.info("[Inicia]PessoaController - criaEndereco");
+    //    log.info("PessoaId ()", pessoaId);
+     //   List<EnderecoResponse> endereco =	enderecoService.criaNovoEndereco(pessoaId, enderecoRequest);
+     //   log.info("[Finaliza]PessoaController -criaEndereco");
+      //  return endereco;
+  //  }
 }

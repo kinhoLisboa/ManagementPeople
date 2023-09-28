@@ -1,5 +1,7 @@
 package com.gerenciamento.pessoas.Pessoa.controller;
 
+import com.gerenciamento.pessoas.Dto.endereco.EnderecoRequest;
+import com.gerenciamento.pessoas.Dto.endereco.EnderecoResponse;
 import com.gerenciamento.pessoas.Dto.pessoa.*;
 
 import jakarta.validation.Valid;
@@ -34,4 +36,7 @@ public interface Controller {
   //  @PostMapping("/endereco/{pessoaId}")
  //   @ResponseStatus(code = HttpStatus.CREATED)
   //  List<EnderecoResponse> criaEndereco(@PathVariable UUID pessoaId, @Valid @RequestBody EnderecoRequest enderecoRequest );
+    @PostMapping("/endereco/{pessoaId}")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    List<EnderecoResponse> createAddress(@PathVariable UUID personId,@Valid @RequestBody  EnderecoRequest request);
 }

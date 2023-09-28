@@ -15,4 +15,5 @@ public interface PessoaService {
     void update(PessoaAlteraRequest request, UUID id);
 
     void delete(UUID id);
+    void validatesAddress(PessoaRequest request);
 }
