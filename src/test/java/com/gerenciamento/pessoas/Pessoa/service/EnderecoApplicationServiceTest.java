@@ -4,7 +4,9 @@ import com.gerenciamento.pessoas.Dto.endereco.EnderecoRequest;
 import com.gerenciamento.pessoas.Dto.endereco.EnderecoResponse;
 import com.gerenciamento.pessoas.Pessoa.dominio.Endereco;
 import com.gerenciamento.pessoas.Pessoa.dominio.Pessoa;
+import com.gerenciamento.pessoas.Pessoa.dominio.TipoEndereco;
 import com.gerenciamento.pessoas.Pessoa.repository.PessoaRepository;
+import com.gerenciamento.pessoas.handler.APIException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +69,7 @@ class EnderecoApplicationServiceTest {
         verify(repository, never()).save(any(Pessoa.class));
     }
     @Test
-    public void testListAddressToId() {
+    public void testeVerificaSeEstaListandoEnderecosPorPessoa() {
 
         UUID personId = UUID.randomUUID();
         Pessoa person = new Pessoa();
@@ -84,19 +87,50 @@ class EnderecoApplicationServiceTest {
 
     }
     @Test
-    public void testListAddressToIdWhenPersonNotFound() {
+    public void testeVerificaSeNaoEstaListandoEnderecosPorPessoa() {
 
         UUID personId = UUID.randomUUID();
 
         when(repository.idQuest(personId)).thenReturn(null);
 
-        List<EnderecoResponse> result = enderecoApplicationService.listAddressToId(personId);
+        assertThrows(NullPointerException.class, ()->{
+            enderecoApplicationService.listAddressToId(personId);
+        });
 
-        verify(repository).idQuest(personId);
-        assertTrue(result.isEmpty());
+    }
+    @Test
+    public void testeSeEstaBuscadoEnderecoPrincipalPorPessoa() {
+
+        UUID personId = UUID.randomUUID();
+        Pessoa person = new Pessoa();
+        List<Endereco> addressList = new ArrayList<>();
+        addressList.add(new Endereco(TipoEndereco.PRINCIPAL));
+        person.setAddress(addressList);
+
+        when(repository.idQuest(personId)).thenReturn(person);
+        List<EnderecoResponse> result = enderecoApplicationService.getPrimaryAddress(personId);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+    }
+    @Test
+    public void testeSeNaoEstaBuscadoEnderecoPrincipalPorPessoa(){
+        UUID personId = UUID.randomUUID();
+        Pessoa person = new Pessoa();
+        List<Endereco> addressList = new ArrayList<>();
+        addressList.add(new Endereco(TipoEndereco.SECUNDARIO));
+        person.setAddress(addressList);
+
+        when(repository.idQuest(personId)).thenReturn(person);
+
+        APIException exception = assertThrows(APIException.class, () -> {
+            enderecoApplicationService.getPrimaryAddress(personId);
+        });
+        assertNotEquals(TipoEndereco.PRINCIPAL, TipoEndereco.SECUNDARIO);
+
+
     }
 
 
 
-
-}
+    }

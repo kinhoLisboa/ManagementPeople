@@ -13,9 +13,11 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -59,5 +61,8 @@ public class EnderecoApplicationService implements  EnderecoService{
         log.info("[Finaliza]EnderecoApplicationervice - getPrincipleAddress");
         return EnderecoResponse.parseToList(addressPerson);
     }
+
+
+
 
 }

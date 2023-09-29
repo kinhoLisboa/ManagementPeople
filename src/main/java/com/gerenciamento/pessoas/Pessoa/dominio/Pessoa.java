@@ -1,5 +1,6 @@
 package com.gerenciamento.pessoas.Pessoa.dominio;
 
+import com.gerenciamento.pessoas.Dto.endereco.EnderecoResponse;
 import com.gerenciamento.pessoas.Dto.pessoa.PessoaAlteraRequest;
 import com.gerenciamento.pessoas.Dto.pessoa.PessoaRequest;
 import jakarta.persistence.*;
@@ -8,6 +9,8 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @AllArgsConstructor
@@ -35,4 +38,5 @@ public class Pessoa {
         this.dateOfBirth = request.getDateBirth();
         this.address = new ArrayList<Endereco>(request.getAddress());
     }
+
 }

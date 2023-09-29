@@ -1,13 +1,15 @@
 package com.gerenciamento.pessoas.Dto.endereco;
 
 import com.gerenciamento.pessoas.Pessoa.dominio.Endereco;
-import lombok.Value;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Value
+@Getter
+@Setter
+@AllArgsConstructor
 public class EnderecoResponse {
 
     private UUID id;
@@ -18,6 +20,10 @@ public class EnderecoResponse {
         this.id = address.getId();
         this.cep = address.getCep();
         this.number = address.getNumber();
+    }
+
+    public EnderecoResponse() {
+
     }
 
     public static List<EnderecoResponse> parseToList(List<Endereco> list) {

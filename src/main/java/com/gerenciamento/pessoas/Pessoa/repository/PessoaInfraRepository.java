@@ -1,8 +1,10 @@
 package com.gerenciamento.pessoas.Pessoa.repository;
 
 import com.gerenciamento.pessoas.Pessoa.dominio.Pessoa;
+import com.gerenciamento.pessoas.handler.APIException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,6 +34,9 @@ public class PessoaInfraRepository implements PessoaRepository{
     @Override
     public Pessoa idQuest(UUID id) {
         log.info("[Inicia]PessoaInfraRepository - idQuest");
+        if(!repository.existsById(id)){
+            throw APIException.build(HttpStatus.BAD_REQUEST,"Pessoa não encontrada!");
+        }
         var person = repository.getReferenceById(id);
         log.info("[Finaliza]PessoaInfraRepository - idQuest");
         return person;

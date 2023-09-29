@@ -4,6 +4,7 @@ import com.gerenciamento.pessoas.Dto.endereco.EnderecoRequest;
 import com.gerenciamento.pessoas.Dto.endereco.EnderecoResponse;
 import com.gerenciamento.pessoas.Dto.pessoa.*;
 
+import com.gerenciamento.pessoas.Pessoa.dominio.Endereco;
 import com.gerenciamento.pessoas.Pessoa.service.EnderecoService;
 import com.gerenciamento.pessoas.Pessoa.service.PessoaService;
 import lombok.RequiredArgsConstructor;
@@ -84,4 +85,5 @@ public class ControllerPeople implements Controller{
         log.info("[Finaliza]PessoaController - getAddressPrinciple");
         return address;
     }
+
 }

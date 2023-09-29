@@ -22,7 +22,7 @@ public class PessoaApplicationService implements  PessoaService{
     @Override
     public PessoaResponse register(PessoaRequest request) {
         log.info("[Inicia]PessoaApplicationService - register");
-       // validaEndereco(pessoaRequest);
+        validatesAddress(request);
         Pessoa person = repositoryPerson.save(new Pessoa(request));
         log.info("[Inicia]PessoaApplicationService - register");
         return new PessoaResponse(person);

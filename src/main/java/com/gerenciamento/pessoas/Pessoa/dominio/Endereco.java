@@ -45,4 +45,8 @@ public class Endereco {
         this.city= request.getCity();
         this.type = request.getType();
     }
+
+    public Endereco(TipoEndereco tipoEndereco) {
+        this.type = tipoEndereco;
+    }
 }
