@@ -4,9 +4,12 @@ import com.gerenciamento.pessoas.Pessoa.dominio.TipoEndereco;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Value;
+import lombok.*;
 
-@Value
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class EnderecoRequest {
 
     @NotBlank
@@ -19,4 +22,7 @@ public class EnderecoRequest {
     private String city;
     @Enumerated(EnumType.STRING)
     private TipoEndereco type;
+
+
+
 }

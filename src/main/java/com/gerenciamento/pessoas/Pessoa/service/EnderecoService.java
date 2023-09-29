@@ -10,4 +10,7 @@ public interface EnderecoService {
     List<EnderecoResponse> createNewAddress(UUID personId, EnderecoRequest request);
 
     List<EnderecoResponse> listAddressToId(UUID personId);
+
+    List<EnderecoResponse>  getPrimaryAddress(UUID personId);
+
 }

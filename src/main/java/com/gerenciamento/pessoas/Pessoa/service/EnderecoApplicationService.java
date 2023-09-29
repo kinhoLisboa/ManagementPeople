@@ -5,10 +5,12 @@ import com.gerenciamento.pessoas.Dto.endereco.EnderecoResponse;
 import com.gerenciamento.pessoas.Dto.pessoa.PessoaRequest;
 import com.gerenciamento.pessoas.Pessoa.dominio.Endereco;
 import com.gerenciamento.pessoas.Pessoa.dominio.Pessoa;
-import com.gerenciamento.pessoas.Pessoa.repository.EnderecoRepository;
+import com.gerenciamento.pessoas.Pessoa.dominio.TipoEndereco;
 import com.gerenciamento.pessoas.Pessoa.repository.PessoaRepository;
+import com.gerenciamento.pessoas.handler.APIException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +24,6 @@ public class EnderecoApplicationService implements  EnderecoService{
 
     private final PessoaRepository pessoaRepository;
     private final PessoaService pessoaService;
-    private final EnderecoRepository addressRepository;
     @Override
     public List<EnderecoResponse> createNewAddress(UUID personId, EnderecoRequest request) {
         log.info("[Inicia]EnderecoApplicationervice - createNewAddress");
@@ -38,8 +39,25 @@ public class EnderecoApplicationService implements  EnderecoService{
     @Override
     public List<EnderecoResponse> listAddressToId(UUID personId) {
         log.info("[Inicia]EnderecoApplicationervice - listAddressToId");
-        List<Endereco> list = addressRepository.listAddressToId(personId);
+        Pessoa person = pessoaRepository.idQuest(personId);
+        List<Endereco> list = person.getAddress();
         log.info("[Finaliza]EnderecoApplicationervice - listAddressToId");
         return EnderecoResponse.parseToList(list);
     }
+
+    @Override
+    public List<EnderecoResponse> getPrimaryAddress(UUID personId) {
+        log.info("[Inicia]EnderecoApplicationervice - getPrincipleAddress");
+        Pessoa person = pessoaRepository.idQuest(personId);
+        List<Endereco> addressPerson = person.getAddress()
+                .stream()
+                .filter(address -> address.getType()== TipoEndereco.PRINCIPAL)
+                .collect(Collectors.toList());
+        if(addressPerson.isEmpty()){
+            throw APIException.build(HttpStatus.NOT_FOUND, "Não ha endereço principal registrado");
+        }
+        log.info("[Finaliza]EnderecoApplicationervice - getPrincipleAddress");
+        return EnderecoResponse.parseToList(addressPerson);
+    }
+
 }

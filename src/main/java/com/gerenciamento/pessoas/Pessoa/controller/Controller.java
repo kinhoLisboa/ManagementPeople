@@ -39,5 +39,8 @@ public interface Controller {
     @GetMapping("/endereco/{personId}")
     @ResponseStatus(code = HttpStatus.OK)
     List<EnderecoResponse> listAddressToId(@PathVariable UUID personId);
+    @GetMapping("/endereco/{personId}/Principal")
+    @ResponseStatus(code = HttpStatus.OK)
+    List<EnderecoResponse> getAddressPrimary(@PathVariable UUID personId);
 
 }

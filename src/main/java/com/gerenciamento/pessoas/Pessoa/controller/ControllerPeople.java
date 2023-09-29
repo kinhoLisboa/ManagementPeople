@@ -76,4 +76,12 @@ public class ControllerPeople implements Controller{
         log.info("[Finaliza]PessoaController -listAddressToId");
         return list;
     }
+
+    @Override
+    public  List<EnderecoResponse> getAddressPrimary(UUID personId) {
+        log.info("[Inicia]PessoaController - getAddressPrinciple");
+        List<EnderecoResponse> address = addressService.getPrimaryAddress(personId);
+        log.info("[Finaliza]PessoaController - getAddressPrinciple");
+        return address;
+    }
 }

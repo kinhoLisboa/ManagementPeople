@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Value
 public class EnderecoResponse {
 
-    UUID id;
+    private UUID id;
     private String cep;
     private String number;
 
