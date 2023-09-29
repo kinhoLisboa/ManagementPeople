@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-class PessoaApplicationServiceTest {
+class PessoaServiceTest {
 
     @Autowired
     private PessoaApplicationService service;
